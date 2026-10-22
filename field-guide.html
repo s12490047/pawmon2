@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="field-guide">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pawmon 田野圖鑑 — 台灣浪浪探索圖鑑</title>
+<meta name="description" content="Pawmon 田野圖鑑：以自然史圖鑑的語氣，走訪台灣六都、翻開浪浪卡牌、收藏屬於你的毛孩子圖鑑。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="field-guide.css">
+</head>
+<body>
+<a class="skip" href="#main">跳到主要內容</a>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <button class="logo" data-nav="home" aria-label="回到首頁">
+      <span class="logo-mark" aria-hidden="true">P</span>
+      <span>
+        <span class="logo-name">Pawmon</span>
+        <span class="logo-sub">台灣浪浪探索圖鑑</span>
+      </span>
+    </button>
+    <nav class="nav" aria-label="主選單">
+      <button class="nav-btn" data-nav="home">首頁</button>
+      <button class="nav-btn" data-nav="map">探索地圖</button>
+      <button class="nav-btn" data-nav="collection">我的圖鑑 <span class="nav-count" id="navFavCount">0</span></button>
+      <button class="nav-btn nav-action" data-nav="upload">新增浪浪</button>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="view" id="view-home">
+    <div class="wrap hero">
+      <div class="hero-copy">
+        <h1>每一隻浪浪，<br>都值得被看見。</h1>
+        <p class="hero-lead">走訪台灣六都，翻開一張張浪浪卡牌。收集牠們的故事、認識牠們的個性，也讓每一次點擊，都成為關注流浪動物的開始。</p>
+        <div class="hero-actions">
+          <button class="btn-primary" id="startExplore">開始探索</button>
+          <button class="btn-ghost" data-nav="collection">打開我的圖鑑</button>
+        </div>
+        <ul class="hero-stats">
+          <li><b id="statAnimals">36</b><span>浪浪角色</span></li>
+          <li><b>6</b><span>直轄市</span></li>
+          <li><b>5</b><span>種稀有度</span></li>
+        </ul>
+      </div>
+      <div class="hero-deck" id="heroDeck" aria-hidden="true"></div>
+    </div>
+
+    <section class="wrap map-section" id="mapSection">
+      <div class="section-head">
+        <h2>選一座城市，開始尋寶</h2>
+        <p>點擊地圖上的六都區塊，進入屬於那座城市的浪浪圖鑑。</p>
+      </div>
+      <div class="map-layout">
+        <div class="map-card">
+          <svg id="taiwanMap" viewBox="0 0 500 640" role="group" aria-label="台灣六都互動地圖">
+            <path class="island" d="M250 38 C282 46 300 78 311 116 C327 172 324 226 315 276 C306 326 300 372 288 418 C278 458 264 500 243 532 C231 549 214 542 205 522 C189 489 177 454 169 418 C159 373 151 328 147 283 C143 238 145 193 157 152 C167 118 188 84 213 58 C225 45 237 35 250 38 Z"/>
+            <path class="map-route" d="M228 105 L300 170 L178 200 L218 308 L193 420 L252 478"/>
+            <g id="mapNodes"></g>
+          </svg>
+          <p class="map-hint">點擊城市區塊，展開探索</p>
+        </div>
+        <aside class="map-aside">
+          <h2>三十六個名字，六座城市</h2>
+          <p>這是一份虛構的浪浪名錄。每一張卡牌都記下一個名字、一個行政區，和一段值得被讀見的個性。</p>
+          <figure>
+            <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=900&q=70" alt="一隻米白色狗狗望向鏡頭" width="900" height="1100" loading="lazy" decoding="async">
+            <figcaption>示範照片來源：Unsplash。角色與地點均為虛構。</figcaption>
+          </figure>
+        </aside>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <section class="notice">
+        <h2>示範資料說明</h2>
+        <p>本網站為課程專題，內建三十六位浪浪皆為示範用虛構角色，並非真實待認養動物。稀有度與可愛度、親近度為遊戲化設計，不代表動物的生命價值、領養優先順序或實際身價。你透過「新增浪浪」建立的資料只存在此瀏覽器，也不代表真實認養資訊。</p>
+      </section>
+    </div>
+  </section>
+
+  <section class="view explore-view" id="view-explore" hidden>
+    <div class="wrap">
+      <div class="explore-top">
+        <button class="btn-ghost back-btn" data-nav="home">回首頁</button>
+        <div class="explore-title">
+          <h1 id="cityTitle">臺北市</h1>
+          <p>六都浪浪圖鑑</p>
+        </div>
+        <div class="city-switch" id="citySwitch" role="group" aria-label="切換城市"></div>
+      </div>
+
+      <div class="explore-grid">
+        <aside class="explore-side">
+          <div class="city-badge" id="cityBadge"></div>
+          <h2 class="side-label">選擇行政區</h2>
+          <div class="chips" id="districtChips"></div>
+          <div class="position-box">
+            <span>目前探索位置</span>
+            <b id="positionText">臺北市 · 全部區域</b>
+            <p id="resultText">共 6 張卡牌</p>
+          </div>
+          <p class="side-note">卡牌依稀有度由高至低排列：SSR、SR、UR、R、N。點擊卡牌可以查看完整介紹與收藏。</p>
+        </aside>
+
+        <section class="cards-panel" aria-label="浪浪卡牌列表">
+          <div class="filters">
+            <label class="search-box">
+              <span class="search-mark" aria-hidden="true">搜</span>
+              <input id="searchInput" type="search" placeholder="搜尋名字、個性、行政區" aria-label="關鍵字搜尋" autocomplete="off">
+            </label>
+            <div class="segmented" id="typeFilter" role="group" aria-label="動物類型">
+              <button data-type="全部" class="active">全部</button>
+              <button data-type="貓">貓咪</button>
+              <button data-type="狗">狗狗</button>
+            </div>
+            <select id="raritySelect" class="filter-select" aria-label="依稀有度篩選"></select>
+            <button id="clearBtn" class="btn-clear" data-clear>清除篩選</button>
+          </div>
+          <div class="list-meta">
+            <span id="listCount">顯示 6 張卡牌</span>
+            <span>依稀有度排序</span>
+          </div>
+          <div class="card-list" id="cardList"></div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section class="view upload-view" id="view-upload" hidden>
+    <div class="wrap">
+      <div class="upload-head">
+        <h1>新增一隻浪浪</h1>
+        <p>建立一張只存在你瀏覽器裡的卡牌，送出後會直接放進對應城市的圖鑑。</p>
+      </div>
+
+      <form class="upload-form" id="uploadForm" novalidate>
+        <div class="form-grid">
+          <label class="field">名稱 *
+            <input id="upName" type="text" required maxlength="20" placeholder="例如：小橘" autocomplete="off">
+          </label>
+
+          <div class="field">
+            <span>類型 *</span>
+            <div class="radio-row" role="radiogroup" aria-label="動物類型">
+              <label><input type="radio" name="upType" value="貓" required> 貓咪</label>
+              <label><input type="radio" name="upType" value="狗" required> 狗狗</label>
+            </div>
+          </div>
+
+          <label class="field">可愛度 *
+            <select id="upCute" required></select>
+          </label>
+
+          <label class="field">親近度 *
+            <select id="upFriend" required></select>
+          </label>
+
+          <label class="field">出沒縣市 *
+            <select id="upCity" required></select>
+          </label>
+
+          <label class="field">出沒行政區 *
+            <input id="upDistrict" type="text" list="districtOptions" required maxlength="10" placeholder="例如：大安區" autocomplete="off">
+            <datalist id="districtOptions"></datalist>
+          </label>
+
+          <div class="field field-full">
+            <span>圖片 *</span>
+            <div class="image-source" role="group" aria-label="圖片來源">
+              <button type="button" class="active" data-img-mode="file" aria-pressed="true">上傳檔案</button>
+              <button type="button" data-img-mode="url" aria-pressed="false">圖片網址</button>
+            </div>
+            <div class="image-pane" id="filePane">
+              <input class="file-input" id="upFile" type="file" accept="image/*" required aria-label="上傳圖片檔案">
+              <span class="file-name" id="fileName"></span>
+            </div>
+            <div class="image-pane" id="urlPane" hidden>
+              <input id="upUrl" type="url" inputmode="url" maxlength="2000" placeholder="https://example.com/photo.jpg" aria-label="圖片網址">
+            </div>
+            <div class="upload-preview" id="uploadPreview" aria-live="polite"><span class="preview-empty">尚未選擇圖片</span></div>
+            <small>檔案會壓縮成 800px JPEG 後存進 LocalStorage；也可貼上 https 圖片網址。</small>
+          </div>
+
+          <label class="field field-full">簡介 *
+            <textarea id="upDesc" required maxlength="200" placeholder="說說牠的個性、外觀，或你遇見牠的故事。"></textarea>
+            <small>最多 200 字</small>
+          </label>
+        </div>
+
+        <div class="rarity-box">
+          <span>系統分配稀有度</span>
+          <b class="rarity-badge" id="rarityPreview">—</b>
+          <p id="rarityWhy">選好可愛度與親近度後，系統會自動分配稀有度。</p>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">新增這隻浪浪</button>
+          <button type="button" class="btn-ghost" id="resetUpload">清空表單</button>
+        </div>
+        <p class="form-note">資料只儲存在此瀏覽器的 LocalStorage，不會上傳，也不會出現在其他裝置。此區資料由使用者自行新增，不代表真實認養資訊。</p>
+      </form>
+    </div>
+  </section>
+
+  <section class="view collection-view" id="view-collection" hidden>
+    <div class="wrap">
+      <div class="collection-head">
+        <h1>我的浪浪圖鑑</h1>
+        <p>把喜歡的浪浪收進圖鑑，也把牠們的故事放在心上。</p>
+      </div>
+
+      <div class="collection-stats">
+        <div class="stat-card"><b id="favCount">0</b><span>已收藏浪浪</span></div>
+        <div class="stat-card"><b id="favPct">0%</b><span>圖鑑完成度</span></div>
+        <div class="stat-card"><b id="favCityCount">0</b><span>已走訪城市</span></div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress"><i id="collectionBar"></i></div>
+        <div class="progress-label"><span>0 / 36</span><span>再收集 36 張就完成圖鑑</span></div>
+      </div>
+
+      <h2>探索成就 <span class="count-tag" id="badgeCount">0 / 4</span></h2>
+      <div class="badges" id="badges"></div>
+
+      <h2>已收藏的浪浪 <span class="count-tag" id="favCountTag">0</span></h2>
+      <div class="collection-grid" id="collectionGrid"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div>
+      <p class="footer-mark">Pawmon</p>
+      <p>台灣浪浪探索圖鑑 · 課程專題 Demo</p>
+    </div>
+    <div class="footer-notes">
+      <p>收藏與新增資料只存在你的瀏覽器 LocalStorage，不會上傳。示範照片來源：Unsplash；自訂資料與圖片由使用者提供。</p>
+      <p class="style-links">風格版本：<a href="index.html">總覽</a> · <a href="city-chapters.html">六都海報</a> · <a href="card-binder.html">收藏冊</a></p>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-backdrop" id="modal" hidden>
+  <div class="modal-card" id="modalCard" role="dialog" aria-modal="true" aria-labelledby="modalName"></div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<noscript><p class="wrap noscript">此網站需要 JavaScript 才能載入卡牌、地圖與收藏功能。</p></noscript>
+<script src="../assets/app.js"></script>
+</body>
+</html>
