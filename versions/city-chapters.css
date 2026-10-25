@@ -244,7 +244,7 @@ img.broken{display:none}
 .mini-body{background:var(--r-bg);color:var(--r-ink);padding:10px 12px;display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
 .mini-body h3{font-family:var(--font-display);font-size:22px;font-weight:600;line-height:1;margin:0}
 .mini-body p{font-size:13px;margin:3px 0 0;color:inherit}
-.mini-body .rarity-chip{position:static;flex:0 0 auto}
+.mini-body .rarity-chip{position:static;flex:0 0 auto;background:var(--black);color:var(--bone)}
 
 /* ---------- upload chapter ---------- */
 .upload-view{background:var(--green);padding:64px 0 80px}
@@ -339,6 +339,7 @@ img.broken{display:none}
   .fan-card:nth-child(6){background:var(--black)}
   .fan-card:nth-child(2n) .fan-body{top:0;left:0;right:0;bottom:0;background:transparent;justify-content:flex-end;padding:12px}
   .fan-card:nth-child(2n) .fan-body b{font-size:24px}
+  .fan-card:nth-child(6) .fan-body,.fan-card:nth-child(6) .fan-rarity{color:var(--bone)}
   .hero-copy{grid-template-columns:1fr;gap:20px;padding:32px var(--margin) 48px}
   .hero h1{grid-column:1;grid-row:1;font-size:13vw}
   .hero-lead{grid-column:1;grid-row:2}
